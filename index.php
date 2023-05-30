@@ -6,6 +6,7 @@ include 'model.php';
 $obj = new Model();
 // print_r($obj);
 if (isset($_POST['submit'])) {
+    // below code will insert a new record into a database table.  
     $obj->insertRecord($_POST);
 }
 ?>
@@ -31,26 +32,26 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <h2 class="text-center text-info">CRUD Operation in PHP using OOPS</h2><br>
+    <h2 class="text-center mt-3">CRUD Operation in PHP using OOPS</h2><br>
     <div class="container">
         <form action="index.php" method="post">
             <div class="form-group">
                 <label>Name : </label>
-                <input type="text" name="name" placeholder="Enter Your Name" class="form-control">
+                <input type="text" name="name" placeholder="Enter Your Name" class="form-control" required>
             </div>
             <div class="form-group mt-3">
                 <label>Email :</label>
-                <input type="text" name="email" placeholder="Enter Your Email" class="form-control">
+                <input type="text" name="email" placeholder="Enter Your Email" class="form-control" required>
             </div>
             <div class="form-group mt-3">
-                <input type="submit" value="Submit" name="submit" class="btn btn-info">
+                <input type="submit" value="Submit" name="submit" class="btn btn-dark">
             </div>
         </form><br>
-        <h4 class="text-center text-danger">
+        <h3 class="text-center">
             Display Records
-        </h4>
-        <table class="table table-bordered">
-            <tr class="text-center bg-primary">
+        </h3>
+        <table class="table table-bordered mt-3">
+            <tr class="text-center bg-dark text-white">
                 <th>Sr.No</th>
                 <th>Name</th>
                 <th>Email</th>
