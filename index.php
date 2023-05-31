@@ -1,14 +1,25 @@
 <?php
 
-//Include model.php
+//* Include model.php
+
 include 'model.php';
 
 $obj = new Model();
+
 // print_r($obj);
+
 if (isset($_POST['submit'])) {
-    // below code will insert a new record into a database table.  
+
+    //? below code will insert a new record into a database table.  
+
     $obj->insertRecord($_POST);
-}
+
+} //* isset closed
+
+//? below code will assign the return value of the displayRecord() method of the object $obj to the variable $data
+// $data = $obj->displayRecord();
+// print_r($data);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,8 +43,29 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <h2 class="text-center mt-3">CRUD Operation in PHP using OOPS</h2><br>
+    <h2 class="text-center mt-3">CRUD Operation in PHP using OOPS</h2>
+    <br>
     <div class="container">
+
+        <!-- Display Success Message -->
+
+        <?php
+
+        // msg and insert is defined "header('location:index.php?msg=insert');" in model.php 
+        //? The code you have provided is an if statement that checks if the 'msg' query string parameter is set and if 
+        //? its value is 'insert'. If both of these conditions are true, the code will echo a message that the record 
+        //? was inserted successfully.
+        
+        if (isset($_GET['msg']) and $_GET['msg'] == 'insert') {
+
+            //* below class & role is bootstrap inbuilt funtion 
+        
+            echo '<div class="alert alert-dark" role="alert">
+                Record Inserted Successfully!!!
+            </div>';
+        } //* if loop close
+        
+        ?>
         <form action="index.php" method="post">
             <div class="form-group">
                 <label>Name : </label>
@@ -57,6 +89,28 @@ if (isset($_POST['submit'])) {
                 <th>Email</th>
                 <th>Action</th>
             </tr>
+            <?php
+
+            //! Display Record, we use displayRecord funtion
+            $data = $obj->displayRecord();
+            $srno = 1;
+
+            //* foreach loop used to convert array into value
+            foreach($data as $value) {
+
+            ?>
+            <tr class="text-center">
+                <td><?php echo $srno++ ; ?></td>
+                <td><?php echo $value['name'];?></td>
+                <td><?php echo $value['email']; ?></td>
+                <td>
+                    <a href="index.php" class="btn btn-dark">Edit</a>
+                    <a href="index.php" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            <?php
+            }
+            ?>
         </table>
     </div>
 
