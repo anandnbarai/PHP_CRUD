@@ -60,8 +60,8 @@ class Model
     {
         $name = $post['name'];
         $email = $post['email'];
-        $editid = $post['hid'];
-        $sql = "update users set name ='$name', email = '$email' where id = '$editid'";
+        $updateid = $post['upd'];
+        $sql = "update users set name ='$name', email = '$email' where id = '$updateid'";
         $result = $this->conn->query($sql);
 
         if ($result) {
@@ -119,6 +119,7 @@ class Model
     }
 
     //! funtion for editid
+    
     public function displayRecordById($editid)
     {
         $sql = "select * from users where id = '$editid'";

@@ -31,7 +31,7 @@ if (isset($_POST['update'])) {
 } //* isset closed
 
 // Delete Record
-if(isset($_GET['deleteid'])){
+if (isset($_GET['deleteid'])) {
     $did = $_GET['deleteid'];
     $obj->deleteRecord($did);
 }
@@ -81,7 +81,7 @@ if(isset($_GET['deleteid'])){
                 Record Inserted Successfully...!!!
             </div>';
         } //* if loop close
-
+        
         //? Code for display update message
         if (isset($_GET['msg']) and $_GET['msg'] == 'update') {
 
@@ -91,7 +91,7 @@ if(isset($_GET['deleteid'])){
                 Record Updated Successfully...!!!
             </div>';
         } //* if loop close
-
+        
         //? Code for display delete message
         if (isset($_GET['msg']) and $_GET['msg'] == 'delete') {
 
@@ -101,14 +101,16 @@ if(isset($_GET['deleteid'])){
                 Record Deleted Successfully...!!!
             </div>';
         } //* if loop close
-
+        
         ?>
 
         <?php
 
         // Fetch data for Updation
-        if (isset($_GET['editid'])) {
-            $editid = $_GET['editid'];
+        //! $_POST is not working, GET and REQUEST working
+        
+        if (isset($_REQUEST['editid'])) {
+            $editid = $_REQUEST['editid'];
             $myrecord = $obj->displayRecordById($editid);
             ?>
 
@@ -125,7 +127,7 @@ if(isset($_GET['deleteid'])){
                         class="form-control" required>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="hidden" name="hid" value="<?php echo $myrecord['id']; ?>">
+                    <input type="hidden" name="upd" value="<?php echo $myrecord['id']; ?>">
                     <input type="submit" value="Update" name="update" class="btn btn-dark">
                 </div>
             </form>
@@ -185,7 +187,8 @@ if(isset($_GET['deleteid'])){
                     </td>
                     <td>
                         <a href="index.php?editid=<?php echo $value['id']; ?>" class="btn btn-dark">Edit</a>
-                        <a href="index.php?deleteid=<?php echo $value['id']; ?>" class="btn btn-danger">Delete</a>
+                        <a href="index.php?deleteid=<?php echo $value['id']; ?>"
+                            onClick="return confirm('Are you sure you want to delete?')" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 <?php
