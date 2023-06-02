@@ -24,10 +24,10 @@ class Model
 
     //! function for insert records
 
-    public function insertRecord($POSTDATA)
+    public function insertRecord($post)
     {
-        $name = $POSTDATA['name'];
-        $email = $POSTDATA['email'];
+        $name = $post['name'];
+        $email = $post['email'];
         $sql = "insert into users(name,email) values('$name','$email')";
         $result = $this->conn->query($sql);
 
@@ -52,6 +52,42 @@ class Model
         //     // The query failed.
         //     echo 'Error inserting record: ' . $this->conn->error;
         // }
+    }
+
+    //! Function for Update Record
+
+    public function updateRecord($post)
+    {
+        $name = $post['name'];
+        $email = $post['email'];
+        $editid = $post['hid'];
+        $sql = "update users set name ='$name', email = '$email' where id = '$editid'";
+        $result = $this->conn->query($sql);
+
+        if ($result) {
+
+            //? location will divert to index.php page
+            //? this string will use in index page or where we need to display alert when GET['msg'] variable is set
+
+            header('location:index.php?msg=update');
+
+        } else {
+            echo 'error' . $sql . '<br>' . $this->conn->error;
+        }
+    }
+
+    //! Function for delete record
+
+    public function deleteRecord($did)
+    {
+        $sql = "delete from users where id = '$did'";
+        $result = $this->conn->query($sql);
+
+        if ($result) {
+            header('location:index.php?msg=delete');
+        } else {
+            echo "Error " . $sql . "<br>" . $this->conn->error;
+        }
     }
 
     //! Function for  Display records
@@ -80,6 +116,18 @@ class Model
         //     }
         //     return $data;
         // }
+    }
+
+    //! funtion for editid
+    public function displayRecordById($editid)
+    {
+        $sql = "select * from users where id = '$editid'";
+        $result = $this->conn->query($sql);
+
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return $row;
+        }
     }
 }
 

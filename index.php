@@ -8,6 +8,7 @@ $obj = new Model();
 
 // print_r($obj);
 
+//* Insert Record
 if (isset($_POST['submit'])) {
 
     //? below code will insert a new record into a database table.  
@@ -19,6 +20,21 @@ if (isset($_POST['submit'])) {
 //? below code will assign the return value of the displayRecord() method of the object $obj to the variable $data
 // $data = $obj->displayRecord();
 // print_r($data);
+
+//* Update Record
+if (isset($_POST['update'])) {
+
+    //? below code will update record into a database table.  
+
+    $obj->updateRecord($_POST);
+
+} //* isset closed
+
+// Delete Record
+if(isset($_GET['deleteid'])){
+    $did = $_GET['deleteid'];
+    $obj->deleteRecord($did);
+}
 
 ?>
 <!DOCTYPE html>
@@ -64,21 +80,76 @@ if (isset($_POST['submit'])) {
                 Record Inserted Successfully!!!
             </div>';
         } //* if loop close
+
+        if (isset($_GET['msg']) and $_GET['msg'] == 'update') {
+
+            //* below class & role is bootstrap inbuilt funtion 
         
+            echo '<div class="alert alert-primary" role="alert">
+                Record Updated Successfully!!!
+            </div>';
+        } //* if loop close
+
+        if (isset($_GET['msg']) and $_GET['msg'] == 'delete') {
+
+            //* below class & role is bootstrap inbuilt funtion 
+        
+            echo '<div class="alert alert-danger" role="alert">
+                Record Deleted Successfully!!!
+            </div>';
+        } //* if loop close
+
         ?>
-        <form action="index.php" method="post">
-            <div class="form-group">
-                <label>Name : </label>
-                <input type="text" name="name" placeholder="Enter Your Name" class="form-control" required>
-            </div>
-            <div class="form-group mt-3">
-                <label>Email :</label>
-                <input type="text" name="email" placeholder="Enter Your Email" class="form-control" required>
-            </div>
-            <div class="form-group mt-3">
-                <input type="submit" value="Submit" name="submit" class="btn btn-dark">
-            </div>
-        </form><br>
+
+        <?php
+
+        // Fetch data for Updation
+        if (isset($_GET['editid'])) {
+            $editid = $_GET['editid'];
+            $myrecord = $obj->displayRecordById($editid);
+            ?>
+
+            <!-- Update Form -->
+            <form action="index.php" method="post">
+                <div class="form-group">
+                    <label>Name : </label>
+                    <input type="text" name="name" value="<?php echo $myrecord['name']; ?>" placeholder="Enter Your Name"
+                        class="form-control" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label>Email :</label>
+                    <input type="text" name="email" value="<?php echo $myrecord['email']; ?>" placeholder="Enter Your Email"
+                        class="form-control" required>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="hidden" name="hid" value="<?php echo $myrecord['id']; ?>">
+                    <input type="submit" value="Update" name="update" class="btn btn-dark">
+                </div>
+            </form>
+
+            <?php
+        } //* if closed
+        else {
+            ?>
+
+            <!-- update form -->
+            <form action="index.php" method="post">
+                <div class="form-group">
+                    <label>Name : </label>
+                    <input type="text" name="name" placeholder="Enter Your Name" class="form-control" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label>Email :</label>
+                    <input type="text" name="email" placeholder="Enter Your Email" class="form-control" required>
+                </div>
+                <div class="form-group mt-3">
+                    <input type="submit" value="Submit" name="submit" class="btn btn-dark">
+                </div>
+            </form>
+            <?php
+        } //* else closed
+        ?>
+        <br>
         <h3 class="text-center">
             Display Records
         </h3>
@@ -96,19 +167,25 @@ if (isset($_POST['submit'])) {
             $srno = 1;
 
             //* foreach loop used to convert array into value
-            foreach($data as $value) {
+            foreach ($data as $value) {
 
-            ?>
-            <tr class="text-center">
-                <td><?php echo $srno++ ; ?></td>
-                <td><?php echo $value['name'];?></td>
-                <td><?php echo $value['email']; ?></td>
-                <td>
-                    <a href="index.php" class="btn btn-dark">Edit</a>
-                    <a href="index.php" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-            <?php
+                ?>
+                <tr class="text-center">
+                    <td>
+                        <?php echo $srno++; ?>
+                    </td>
+                    <td>
+                        <?php echo $value['name']; ?>
+                    </td>
+                    <td>
+                        <?php echo $value['email']; ?>
+                    </td>
+                    <td>
+                        <a href="index.php?editid=<?php echo $value['id']; ?>" class="btn btn-dark">Edit</a>
+                        <a href="index.php?deleteid=<?php echo $value['id']; ?>" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <?php
             }
             ?>
         </table>
