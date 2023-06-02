@@ -72,30 +72,33 @@ if(isset($_GET['deleteid'])){
         //? its value is 'insert'. If both of these conditions are true, the code will echo a message that the record 
         //? was inserted successfully.
         
+        //? Code for display insert message
         if (isset($_GET['msg']) and $_GET['msg'] == 'insert') {
 
             //* below class & role is bootstrap inbuilt funtion 
         
             echo '<div class="alert alert-dark" role="alert">
-                Record Inserted Successfully!!!
+                Record Inserted Successfully...!!!
             </div>';
         } //* if loop close
 
+        //? Code for display update message
         if (isset($_GET['msg']) and $_GET['msg'] == 'update') {
 
             //* below class & role is bootstrap inbuilt funtion 
         
             echo '<div class="alert alert-primary" role="alert">
-                Record Updated Successfully!!!
+                Record Updated Successfully...!!!
             </div>';
         } //* if loop close
 
+        //? Code for display delete message
         if (isset($_GET['msg']) and $_GET['msg'] == 'delete') {
 
             //* below class & role is bootstrap inbuilt funtion 
         
             echo '<div class="alert alert-danger" role="alert">
-                Record Deleted Successfully!!!
+                Record Deleted Successfully...!!!
             </div>';
         } //* if loop close
 
