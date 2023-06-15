@@ -12,5 +12,6 @@
              It is a lightweight and flexible JavaScript popup that displays content on top of the current page. </li>
          <li>Ajax (Asynchronous JavaScript and XML) is a web development technique that allows 
             you to make asynchronous HTTP requests from the web page to the server without refreshing the entire page. </li>
+         <li>jQuery is a fast, small, and feature-rich JavaScript library.</li>
     </ul>
 </ul>
