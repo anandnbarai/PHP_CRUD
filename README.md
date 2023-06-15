@@ -1,7 +1,7 @@
 # PHP CRUD
 <h2 style="align:center">CRUD is an acronym for Create, Read, Update, and Delete</h2>
 <ul>
-  <li<h3>Using OOP</h3></li>
+  <li><h3>Using OOP</h3></li>
     <ul>
     <li>OOP stands for Object-Oriented Programming</li>
     </ul>
