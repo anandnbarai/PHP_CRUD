@@ -124,6 +124,20 @@
             });
         }
 
+    //! Delete Record
+
+    function deleteuser(deleteid){
+        $.ajax({
+            url:"delete.php",
+            type:'post',
+            data:{
+                deletesend:deleteid
+            },
+            success:function(data,status){
+                displayData();
+            }
+        });
+    }
     </script>
 
 </body>
