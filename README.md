@@ -5,6 +5,7 @@
     <ul>
     <li>OOP stands for Object-Oriented Programming</li>
     </ul>
+  <br>
   <li>Using Bootstrap Modal, Ajax & jQuery</li>
      <ul>
     <li>Bootstrap Modal is a component provided by the Bootstrap framework. 
