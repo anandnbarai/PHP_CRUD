@@ -30,7 +30,7 @@ if (isset($_POST['displaySend'])) {
         <td>' . $mobile . '</td>
         <td>' . $city . '</td>
         <td>
-            <button class="btn btn-dark">Update</button>
+            <button class="btn btn-dark" onclick="updateuser('.$id.')">Update</button>
             <button class="btn btn-danger" onclick="deleteuser('.$id.')">Delete</button>
         </td> 
         </tr>';

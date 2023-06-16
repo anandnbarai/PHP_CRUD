@@ -16,7 +16,7 @@
 
 <body>
 
-    <!-- Modal -->
+    <!-- Modal Add User-->
     <div class="modal fade" id="completeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -53,13 +53,51 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Update User -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update User Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="completename" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="updatename" placeholder="Enter Your Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="completename" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="updateemail" placeholder="Enter Your Email"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="completename" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="updatemobile" minlength="10"
+                            placeholder="Enter Your Mobile Number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="completename" class="form-label">City</label>
+                        <input type="text" class="form-control" id="updatecity" placeholder="Enter Your City" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="updatedetails()">Update</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <input type="hidden" id="hiddendata">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add user button -->
     <div class="container my-3">
         <h1 class="text-center">PHP CRUD Operations using Bootstrap Modal</h1>
 
         <!-- from BS modal -->
 
-        <button type="button" class="btn btn-dark my-3" data-bs-toggle="modal" data-bs-target="#completeModal">Add New
+        <button type="button" class="btn btn-dark my-4" data-bs-toggle="modal" data-bs-target="#completeModal">Add New
             User</button>
         <div id="displayDataTable"></div>
     </div>
@@ -80,7 +118,7 @@
 
     <script>
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             displayData();
         });
 
@@ -119,25 +157,62 @@
                 success: function (data, status) {
                     //! function to display data
                     console.log(status);
+                    $('#completeModal').modal('hide');
                     displayData();
                 }
             });
         }
 
-    //! Delete Record
+        //! Delete Record
 
-    function deleteuser(deleteid){
-        $.ajax({
-            url:"delete.php",
-            type:'post',
-            data:{
-                deletesend:deleteid
+        function deleteuser(deleteid) {
+            $.ajax({
+                url: "delete.php",
+                type: 'post',
+                data: {
+                    deletesend: deleteid
+                },
+                success: function (data, status) {
+                    displayData();
+                }
+            });
+        }
+
+        //! Update function
+        function updateuser(updateid) {
+            $('#hiddendata').val(updateid);
+
+            $.post("update.php", { updateid: updateid }, function (data, status) {
+                var userid = JSON.parse(data);
+                $('#updatename').val(userid.name);
+                $('#updateemail').val(userid.email);
+                $('#updatemobile').val(userid.mobile);
+                $('#updatecity').val(userid.city);
+            });
+
+            $('#updateModal').modal('show');
+        }
+
+        //! Onclick update event function
+        function updatedetails() {
+            var updatename = $('#updatename').val();
+            var updateemail = $('#updateemail').val();
+            var updatemobile = $('#updatemobile').val();
+            var updatecity = $('#updatecity').val();
+            var hiddendata = $('#hiddendata').val();
+
+            $.post('update.php', {
+                updatename: updatename,
+                updateemail: updateemail,
+                updatemobile: updatemobile,
+                updatecity: updatecity,
+                hiddendata: hiddendata
             },
-            success:function(data,status){
+            function(data,status){
+                $('#updateModal').modal('hide');
                 displayData();
-            }
         });
-    }
+        }
     </script>
 
 </body>
