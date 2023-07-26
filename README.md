@@ -1,4 +1,4 @@
-# PHP CRUD
+# CRUD
 
 CRUD stands for Create, Read, Update, and Delete. These are the four basic operations that most software applications need to be able to perform on data.
 
