@@ -17,9 +17,9 @@
             <td>Otto</td>
             <td>@mdo</td>
             <td>
-                <a href="#" class="me-3 profile" data-bs-target="#userViewModal" data-bs-toggle="modal"><i class="fas fa-eye"></i></a>
-                <a href="#" class="me-3 edituser"><i class="fas fa-edit"></i></a>
-                <a href="#" class="me-3 deleteuser"><i class="fas fa-trash-alt"></i></a>
+                <a href="#" class="me-3 profile" data-bs-target="#userViewModal" data-bs-toggle="modal"><i class="fas fa-eye text-dark" title="View Profile"></i></a>
+                <a href="#" class="me-3 edituser text-primary" title="Edit" data-bs-target="#usermodal" data-bs-toggle="modal"><i class="fas fa-edit"></i></a>
+                <a href="#" class="me-3 deleteuser text-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
     </tbody>
